@@ -5,113 +5,125 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
+  Alert,
   StyleSheet,
   Text,
-  useColorScheme,
+  TextInput,
+  TouchableOpacity,
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function App(): React.JSX.Element {
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+  });
+  const onPressLogin = () => {
+    // Do something about login operation
+    Alert.alert('HI');
+    console.log('sf');
+  };
+  const onPressForgotPassword = () => {
+    // Do something about forgot password operation
+  };
+  const onPressSignUp = () => {
+    // Do something about signup operation
+  };
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.title}> Login Screen</Text>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          onChangeText={text =>
+            setState({
+              ...state,
+              email: text,
+            })
+          }
+          placeholder="Email"
+          value={state.email}
+          placeholderTextColor="#003f5c"
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.inputText}
+          secureTextEntry
+          value={state.password}
+          onChangeText={text =>
+            setState({
+              ...state,
+              password: text,
+            })
+          }
+          placeholder="Password"
+          placeholderTextColor="#003f5c"
+        />
+      </View>
+      <TouchableOpacity onPress={onPressForgotPassword}>
+        <Text style={styles.forgot}>Forgot Password?</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={onPressLogin} style={styles.loginBtn}>
+        <Text style={styles.loginText}>LOGIN </Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={onPressSignUp}>
+        <Text style={styles.inputText}>Signup</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    backgroundColor: '#4FD3DA',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  title: {
+    fontWeight: 'bold',
+    fontSize: 50,
+    color: '#fb5b5a',
+    marginBottom: 40,
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  inputView: {
+    width: '80%',
+    backgroundColor: '#3AB4BA',
+    borderRadius: 25,
+    height: 50,
+    marginBottom: 20,
+    justifyContent: 'center',
+    padding: 20,
   },
-  highlight: {
-    fontWeight: '700',
+  loginText: {
+    fontSize: 20,
+    fontWeight: 800,
+    color:'#fff',
+  },
+  inputText: {
+    height: 50,
+    color: 'white',
+  },
+  forgot: {
+    color: 'red',
+    fontWeight: 700,
+  },
+  forgotAndSignUpText: {
+    color: 'white',
+    fontSize: 11,
+  },
+  loginBtn: {
+    width: '80%',
+    backgroundColor: '#fb5b5a',
+    borderRadius: 25,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 40,
+    marginBottom: 10,
   },
 });
 
